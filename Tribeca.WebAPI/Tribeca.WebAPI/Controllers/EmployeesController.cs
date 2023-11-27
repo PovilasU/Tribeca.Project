@@ -10,6 +10,7 @@ namespace Tribeca.WebAPI.Controllers
     [ApiController]
     public class EmployeesController : ControllerBase
     {
+ 
         private readonly IEmployeeService employeeService;
         public EmployeesController(IEmployeeService employeeService)
         {
@@ -20,8 +21,23 @@ namespace Tribeca.WebAPI.Controllers
         [HttpGet]
         public IActionResult GetEmployees()
         {
-            var result = employeeService.GetAllEmployees();
-            return Ok(result);
+            var employees = employeeService.GetAllEmployees();
+
+            // Transform the employees to include the extra field
+            var employeesWithExtraField = employees.Select(employee => new EmployeeDevMagic
+            {
+                EmployeeId = employee.EmployeeID,
+                ClientID = employee.ClientID,
+                OfficeID = employee.OfficeID,
+                EmployeeName = employee.Name,
+                Bio = employee.Bio,
+                DateOfBirth = employee.DateOfBirth,                
+                StarSign = "StarSign".DevMagicToEnglish(), 
+                BioAsDevMagic = "BioAsDevMagic".EnglishToDevMagic() 
+            });
+
+            return Ok(employeesWithExtraField);
+
         }
 
 

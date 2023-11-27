@@ -12,5 +12,6 @@ namespace Tribeca.WebAPI.Entities
         public string Name { get; set; }
         public string Bio { get; set; }
         public DateOnly DateOfBirth { get; set; }
+
     }
 }
