@@ -8,7 +8,8 @@ namespace Tribeca.WebAPI.Controllers
     {
         private static readonly string[] Summaries = new[]
         {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+            "EnglishToDevMagic".EnglishToDevMagic(), "ASADSASDTEST".DevMagicToEnglish(),
+           // "Freezing123", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering11", "Scorching"
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
