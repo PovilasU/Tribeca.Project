@@ -32,7 +32,7 @@ namespace Tribeca.WebAPI.Controllers
                 EmployeeName = employee.Name,
                 Bio = employee.Bio,
                 DateOfBirth = employee.DateOfBirth,                
-                StarSign = "StarSign".DevMagicToEnglish(), 
+                StarSign = employee.DateOfBirth.ToString().StarSign(), 
                 BioAsDevMagic = "BioAsDevMagic".EnglishToDevMagic() 
             });
 

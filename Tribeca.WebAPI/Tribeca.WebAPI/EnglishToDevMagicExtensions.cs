@@ -1,4 +1,6 @@
-﻿namespace Tribeca.WebAPI
+﻿using Microsoft.AspNetCore.Http;
+
+namespace Tribeca.WebAPI
 {
     
     static class EnglishToDevMagicExtensions
@@ -16,5 +18,23 @@
             //TODO: implement methond
             return "DevMagicToEnglish test: " + str.ToLower();
         }
+
+        //Extension method to return star sign based on month
+
+        public static string StarSign(this string birthDate)
+        {
+            DateTime date = DateTime.Parse(birthDate);
+
+            int birthMonth = date.Month;
+
+            string[] starSigns = {
+            "Capricorn", "Aquarius", "Pisces", "Aries",
+            "Taurus", "Gemini", "Cancer", "Leo",
+            "Virgo", "Libra", "Scorpio", "Sagittarius"
+        };
+
+            return starSigns[birthMonth-1];
+        }
+
     }
 }
