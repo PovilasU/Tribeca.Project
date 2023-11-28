@@ -4,6 +4,7 @@ namespace Tribeca.WebAPI.Entities
 {
     public class Client
     {
+        internal object Offices;
 
         [Key] //Client will have primary key
         public int ClientId { get; set; }

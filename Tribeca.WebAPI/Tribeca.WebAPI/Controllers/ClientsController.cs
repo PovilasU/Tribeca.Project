@@ -16,9 +16,19 @@ namespace Tribeca.WebAPI.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetEmployees()
+        public IActionResult GetClients()
         {
             var clients = clientService.GetAllClients();
+
+
+            return Ok(clients);
+          
+
+        }
+        [HttpGet("{id}")]
+        public IActionResult GetClientById(int id)
+        {
+            var clients = clientService.GetClientById(id);
 
 
             return Ok(clients);

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Tribeca.WebAPI.Entities
 {
@@ -9,6 +10,8 @@ namespace Tribeca.WebAPI.Entities
         public int ClientID { get; set; }
         public string Address { get; set; }
         public bool IsHeadOffice { get; set; }
+        [NotMapped]
+        public object Employees { get; set; }
     }
 
 }
