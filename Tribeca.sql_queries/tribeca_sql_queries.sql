@@ -5,7 +5,7 @@ CREATE DATABASE tribeca_test;
 
 -- 2. create table "clients". Primary key makes sure that id is unique
 CREATE TABLE Clients (
-    clientId int PRIMARY KEY NOT NULL,	
+    ClientId int PRIMARY KEY NOT NULL,	
 	Name VARCHAR(255)
 );
 
@@ -83,3 +83,21 @@ CREATE TABLE Employees (
 );
 
 --testing ends
+
+
+SELECT
+    C.ClientId,
+    C.Name AS ClientName,
+    O.OfficeID,
+    O.Address,
+    O.IsHeadOffice,
+    E.EmployeeID,
+    E.Name AS EmployeeName
+FROM
+    Clients C
+JOIN
+    Offices O ON C.ClientId = O.ClientID
+LEFT JOIN
+    Employees E ON O.OfficeID = E.OfficeID
+ORDER BY
+     C.ClientId, O.IsHeadOffice DESC, E.EmployeeID;

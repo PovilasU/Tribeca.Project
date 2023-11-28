@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Tribeca.WebAPI.Controllers;
-using Tribeca.WebAPI.Services.Implementation;
+﻿using Microsoft.AspNetCore.Mvc;
 using Tribeca.WebAPI.Services.Interfaces;
 
 namespace Tribeca.WebAPI.Controllers
@@ -23,8 +20,8 @@ namespace Tribeca.WebAPI.Controllers
         {
             var employees = employeeService.GetAllEmployees();
 
-            // Transform the employees to include the extra field
-            var employeesWithExtraField = employees.Select(employee => new EmployeeDevMagic
+            // include StarSign and devMagic bio fields to employees
+            var employeesDevMagic = employees.Select(employee => new EmployeeDevMagic
             {
                 EmployeeId = employee.EmployeeID,
                 ClientID = employee.ClientID,
@@ -36,7 +33,8 @@ namespace Tribeca.WebAPI.Controllers
                 BioAsDevMagic = "BioAsDevMagic".EnglishToDevMagic() 
             });
 
-            return Ok(employeesWithExtraField);
+            return Ok(employeesDevMagic);
+          
 
         }
 

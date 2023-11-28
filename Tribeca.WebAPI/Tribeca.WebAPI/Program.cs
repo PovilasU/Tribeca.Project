@@ -16,6 +16,8 @@ builder.Services.AddDbContext<TribecaDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString"));
 });
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+builder.Services.AddScoped<IClientService, ClientService>();
+builder.Services.AddScoped<IOfficeService, OfficeService>();
 
 var app = builder.Build();
 
