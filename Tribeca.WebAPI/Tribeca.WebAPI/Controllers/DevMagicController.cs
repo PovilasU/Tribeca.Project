@@ -12,7 +12,7 @@ namespace Tribeca.WebAPI.Controllers
         [HttpGet]      
         public string Get()
         {
-            return "evday agicmay isyay osay easyyay , iyay ovelay ityay ! it'syay \r\nefinitelyday otnay ayay opycay andyay astepay ofyay igpay atinlay!".DevMagicToEnglish();
+            return "evday agicmay isyay osay easyyay , iyay ovelay ityay ! it'syay efinitelyday otnay ayay opycay andyay astepay ofyay igpay atinlay!".DevMagicToEnglish();
        
         }
 
