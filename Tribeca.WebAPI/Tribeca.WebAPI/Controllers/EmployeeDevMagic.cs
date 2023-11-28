@@ -12,4 +12,12 @@ namespace Tribeca.WebAPI.Controllers
         public string StarSign { get; set; }
         public string BioAsDevMagic { get; set; }
     }
+
+    internal class EmployeeStarSign
+    {
+     
+        public string EmployeeName { get; set; }
+        public string StarSign { get; set; }
+       
+    }
 }

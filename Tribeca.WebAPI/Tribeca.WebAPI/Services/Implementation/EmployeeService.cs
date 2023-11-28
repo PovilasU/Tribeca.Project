@@ -16,5 +16,15 @@ namespace Tribeca.WebAPI.Services.Implementation
             return dbContext.Employees.ToList();
         }
 
+        public List<Employee> GetEmployeeStarSign(string name)
+        {
+          
+            var employee = dbContext.Employees
+             .Where(e => e.Name == name).ToList();
+
+            return employee;
+
+        }
+
     }
 }

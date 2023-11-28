@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Tribeca.WebAPI.Entities;
+using Tribeca.WebAPI.Services.Implementation;
 using Tribeca.WebAPI.Services.Interfaces;
 
 namespace Tribeca.WebAPI.Controllers
@@ -7,7 +9,7 @@ namespace Tribeca.WebAPI.Controllers
     [ApiController]
     public class EmployeesController : ControllerBase
     {
- 
+
         private readonly IEmployeeService employeeService;
         public EmployeesController(IEmployeeService employeeService)
         {
@@ -28,17 +30,37 @@ namespace Tribeca.WebAPI.Controllers
                 OfficeID = employee.OfficeID,
                 EmployeeName = employee.Name,
                 Bio = employee.Bio,
-                DateOfBirth = employee.DateOfBirth,                
-                StarSign = employee.DateOfBirth.ToString().StarSign(), 
-                BioAsDevMagic = "BioAsDevMagic".EnglishToDevMagic() 
+                DateOfBirth = employee.DateOfBirth,
+                StarSign = employee.DateOfBirth.ToString().StarSign(),
+                BioAsDevMagic = "BioAsDevMagic".EnglishToDevMagic()
             });
 
             return Ok(employeesDevMagic);
-          
+
 
         }
 
+        [HttpGet("{name}")]
+        public IActionResult GetEmployeeStarSign(string name)
+        {
 
+            var emploeyee = employeeService.GetEmployeeStarSign(name);
+
+            var employeeDevMagic = emploeyee.Select(employee => new EmployeeStarSign
+            {
+           
+                EmployeeName = employee.Name,         
+                StarSign = employee.DateOfBirth.ToString().StarSign(),
+                
+            });
+
+
+            return Ok(employeeDevMagic.First());
+
+
+
+
+        }
     }
 }
 
