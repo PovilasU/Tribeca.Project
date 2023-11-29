@@ -1,8 +1,9 @@
-import { Component } from "@angular/core";
+import { Component, inject } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { ClientsComponent } from "../clients/clients.component";
 import { Client } from "../client";
 import { RouterModule } from "@angular/router";
+import { ClientsService } from "../clients.service";
 
 @Component({
   selector: "app-home",
@@ -23,18 +24,9 @@ import { RouterModule } from "@angular/router";
   styleUrls: ["./home.component.css"],
 })
 export class HomeComponent {
-  ClientList: Client[] = [
-    {
-      clientId: 1,
-      name: "Client A",
-    },
-    {
-      clientId: 2,
-      name: "Client B",
-    },
-    {
-      clientId: 3,
-      name: "Client C",
-    },
-  ];
+  ClientList: Client[] = [];
+  clientsService: ClientsService = inject(ClientsService);
+  constructor() {
+    this.ClientList = this.clientsService.getAllClients();
+  }
 }
