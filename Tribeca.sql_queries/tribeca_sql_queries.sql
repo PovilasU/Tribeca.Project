@@ -101,3 +101,24 @@ LEFT JOIN
     Employees E ON O.OfficeID = E.OfficeID
 ORDER BY
      C.ClientId, O.IsHeadOffice DESC, E.EmployeeID;
+	 
+	 
+	 
+	 	SELECT
+    C.ClientId,
+    C.Name AS ClientName,
+    O.OfficeID,
+    O.Address,
+    O.IsHeadOffice,
+    E.EmployeeID,
+    E.Name AS EmployeeName,
+	   E.Bio AS EmployeeBio,
+    E.DateOfBirth AS EmployeeDateOfBirth
+FROM
+    Clients C
+JOIN
+    Offices O ON C.ClientId = O.ClientID
+LEFT JOIN
+    Employees E ON O.OfficeID = E.OfficeID
+ORDER BY
+     C.ClientId, O.IsHeadOffice DESC, E.EmployeeID;
