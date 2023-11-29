@@ -8,7 +8,14 @@ import { Client } from "../client";
   selector: "app-details",
   standalone: true,
   imports: [CommonModule],
-  template: ` <p>details works!{{ client?.clientId }}</p> `,
+  template: `
+    <p>details works!{{ client?.clientId }}</p>
+    <article>
+      <section class="listing-description">
+        <h2 class="listing-heading">{{ client?.name }}</h2>
+      </section>
+    </article>
+  `,
   styleUrls: ["./details.component.css"],
 })
 export class DetailsComponent {
