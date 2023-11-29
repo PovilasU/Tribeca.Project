@@ -5,20 +5,7 @@ import { Client } from "./client";
   providedIn: "root",
 })
 export class ClientsService {
-  protected clientList: Client[] = [
-    {
-      clientId: 1,
-      name: "Client A",
-    },
-    {
-      clientId: 2,
-      name: "Client B",
-    },
-    {
-      clientId: 3,
-      name: "Client C",
-    },
-  ];
+  protected clientList: Client[] = [];
 
   constructor() {}
   getAllClients(): Client[] {
