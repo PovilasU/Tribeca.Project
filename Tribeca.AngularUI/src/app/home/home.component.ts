@@ -2,11 +2,12 @@ import { Component } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { ClientsComponent } from "../clients/clients.component";
 import { Client } from "../client";
+import { RouterModule } from "@angular/router";
 
 @Component({
   selector: "app-home",
   standalone: true,
-  imports: [CommonModule, ClientsComponent],
+  imports: [CommonModule, ClientsComponent, HomeComponent, RouterModule],
   template: `
     <section>
       <form>
