@@ -5,7 +5,6 @@ import { Client } from "./client";
   providedIn: "root",
 })
 export class ClientsService {
-  // protected clientList: Client[] = [];
   urlOld = "http://localhost:3000/clients";
   url = "https://localhost:7264/api/Clients";
 
