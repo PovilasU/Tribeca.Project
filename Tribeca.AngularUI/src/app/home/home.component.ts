@@ -4,9 +4,11 @@ import { ClientsComponent } from "../clients/clients.component";
 import { EmployeesComponent } from "../employees/employees.component";
 import { Client } from "../client";
 import { Employee } from "../employee";
+import { Devmagic } from "../devmagic";
 import { RouterModule } from "@angular/router";
 import { ClientsService } from "../clients.service";
 import { EmployeeService } from "../employee.service";
+import { DevMagicService } from "../dev-magic.service";
 
 @Component({
   selector: "app-home",
@@ -65,6 +67,8 @@ import { EmployeeService } from "../employee.service";
         </table>
 
         <h2>DevMagic to English</h2>
+        <h3>{{ devmagic }}</h3>
+
         <!--TODO fix component
           
         <app-employees
@@ -83,14 +87,19 @@ import { EmployeeService } from "../employee.service";
 export class HomeComponent {
   clientList: Client[] = [];
   employeeList: Employee[] = [];
+  devmagic: Devmagic = "";
   clientsService: ClientsService = inject(ClientsService);
   employeeService: EmployeeService = inject(EmployeeService);
+  devmagicService: DevMagicService = inject(DevMagicService);
   constructor() {
     this.clientsService.getAllClients().then((clientlientList: Client[]) => {
       this.clientList = clientlientList;
     });
     this.employeeService.getAllEmployees().then((employeeList: Employee[]) => {
       this.employeeList = employeeList;
+    });
+    this.devmagicService.getDevmagic().then((devmagic: Devmagic) => {
+      this.devmagic = devmagic;
     });
   }
 }
