@@ -16,7 +16,7 @@ import { ClientsService } from "../clients.service";
         <button class="primary" type="buton">Search</button>
       </form>
       <section class="results">
-        <app-clients *ngFor="let client of ClientList" [client]="client">
+        <app-clients *ngFor="let client of clientList" [client]="client">
         </app-clients>
       </section>
     </section>
@@ -24,9 +24,11 @@ import { ClientsService } from "../clients.service";
   styleUrls: ["./home.component.css"],
 })
 export class HomeComponent {
-  ClientList: Client[] = [];
+  clientList: Client[] = [];
   clientsService: ClientsService = inject(ClientsService);
   constructor() {
-    this.ClientList = this.clientsService.getAllClients();
+    this.clientsService.getAllClients().then((clientlientList: Client[]) => {
+      this.clientList = clientlientList;
+    });
   }
 }

@@ -5,13 +5,17 @@ import { Client } from "./client";
   providedIn: "root",
 })
 export class ClientsService {
-  protected clientList: Client[] = [];
+  // protected clientList: Client[] = [];
+  urlOld = "http://localhost:3000/clients";
+  url = "https://localhost:7264/api/Clients";
 
   constructor() {}
-  getAllClients(): Client[] {
-    return this.clientList;
+  async getAllClients(): Promise<Client[]> {
+    const data = await fetch(this.url);
+    return (await data.json()) ?? [];
   }
-  getClienById(id: Number): Client | undefined {
-    return this.clientList.find((client) => client.clientId === id);
+  async getClienById(id: Number): Promise<Client | undefined> {
+    const data = await fetch(`${this.url}/${id}`);
+    return (await data.json()) ?? [];
   }
 }
