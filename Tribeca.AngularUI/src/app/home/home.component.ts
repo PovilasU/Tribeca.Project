@@ -22,54 +22,54 @@ import { DevMagicService } from "../dev-magic.service";
     RouterModule,
   ],
   template: `
-    <section>
-      <section class="results">
-        <h2>Clients</h2>
-        <table border="1">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Offices</th>
-              <th>Employees</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let client of clientList">
-              <td>{{ client.name }}</td>
-              <td>
-                <ul>
-                  <li *ngFor="let office of client.offices">
-                    {{ office.address }}
-                    {{ office.isHeadOffice && "(Head Office)" }}
-                  </li>
-                </ul>
-              </td>
-              <td>
-                <ul>
-                  <li *ngFor="let office of client.offices">
-                    {{ office.employeeName }}, Star Sign:
-                    {{ starSignById(office.employeeId) }}, Bio as Dev Magic:
-                    {{ devMagicBio(office.employeeId) }}
-                  </li>
-                </ul>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+    <section class="current-weather module">
+      <h2>Clients</h2>
+      <table border="1">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Offices</th>
+            <th>Employees</th>
+          </tr>
+        </thead>
 
-        <h2>DevMagic to English</h2>
-        <h3>{{ devmagic }}</h3>
+        <tbody>
+          <tr *ngFor="let client of clientList">
+            <td>{{ client.name }}</td>
+            <td>
+              <!-- <ul> -->
+              <li *ngFor="let office of client.offices">
+                {{ office.address }}
+                {{ office.isHeadOffice && "(Head Office)" }}
+              </li>
+              <!-- </ul> -->
+            </td>
+            <td>
+              <ul>
+                <li *ngFor="let office of client.offices">
+                  {{ office.employeeName }}, Star Sign:
+                  {{ starSignById(office.employeeId) }}, Bio as Dev Magic:
+                  {{ devMagicBio(office.employeeId) }}
+                </li>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
-        <!--TODO possible improvements 
+      <!--TODO possible improvements 
         <app-employees
         *ngFor="let employee of employeeList"
         [employee]="employee"
       >
       </app-employees> -->
-        <!-- <app-clients *ngFor="let client of clientList" [client]="client">
+      <!-- <app-clients *ngFor="let client of clientList" [client]="client">
         </app-clients> -->
-      </section>
     </section>
+    <h2>Dev Magic to English</h2>
+    <div class="current-weather module">
+      <h3>{{ capFirsLetterOfSentence(devmagic) }}</h3>
+    </div>
   `,
   styleUrls: ["./home.component.css"],
 })
@@ -96,6 +96,17 @@ export class HomeComponent {
       return "";
     }
   }
+  capFirsLetterOfSentence(str: any) {
+    if (str) {
+      let tempStr = str?.charAt(0).toUpperCase() + str.slice(1);
+      return tempStr
+        .replace(/\s*,\s*/g, ", ")
+        .replace(/\s*!/, "!")
+        .replace(/\bi\b/g, "I");
+    } else {
+      return "";
+    }
+  }
   constructor() {
     this.clientsService.getAllClients().then((clientlientList: Client[]) => {
       this.clientList = clientlientList;
@@ -106,8 +117,5 @@ export class HomeComponent {
     this.devmagicService.getDevmagic().then((devmagic: Devmagic) => {
       this.devmagic = devmagic;
     });
-    const starSign = this.employeeList.find(
-      (office) => office.employeeId === 1
-    )?.starSign;
   }
 }
