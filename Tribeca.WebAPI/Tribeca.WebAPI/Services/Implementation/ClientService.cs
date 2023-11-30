@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.EntityFrameworkCore;
-using Tribeca.WebAPI.Context;
+﻿using Tribeca.WebAPI.Context;
 using Tribeca.WebAPI.Entities;
 using Tribeca.WebAPI.Services.Interfaces;
 
@@ -14,7 +12,7 @@ namespace Tribeca.WebAPI.Services.Implementation
             this.dbContext = dbContext;
         }
         public List<Client> GetAllClients()
-        {       
+        {
             var query = from c in dbContext.Clients
                         join o in dbContext.Offices on c.ClientId equals o.ClientID
                         join e in dbContext.Employees on o.OfficeID equals e.OfficeID into empGroup
@@ -38,7 +36,7 @@ namespace Tribeca.WebAPI.Services.Implementation
 
         public List<Client> GetClientById(int id)
         {
-            var query = from c in dbContext.Clients                        
+            var query = from c in dbContext.Clients
                         where c.ClientId == id
                         join o in dbContext.Offices on c.ClientId equals o.ClientID
                         join e in dbContext.Employees on o.OfficeID equals e.OfficeID into empGroup
@@ -58,7 +56,7 @@ namespace Tribeca.WebAPI.Services.Implementation
             var result = query.ToList();
 
             return result;
-            
+
         }
     }
 }

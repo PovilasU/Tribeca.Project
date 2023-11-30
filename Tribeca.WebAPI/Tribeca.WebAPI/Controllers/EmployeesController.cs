@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Tribeca.WebAPI.Entities;
-using Tribeca.WebAPI.Services.Implementation;
+using Tribeca.WebAPI.Helpers;
+using Tribeca.WebAPI.Models;
 using Tribeca.WebAPI.Services.Interfaces;
 
 namespace Tribeca.WebAPI.Controllers

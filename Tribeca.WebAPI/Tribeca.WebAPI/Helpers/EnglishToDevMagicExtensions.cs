@@ -1,15 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
-
-namespace Tribeca.WebAPI
+﻿namespace Tribeca.WebAPI.Helpers
 {
-    
     static class EnglishToDevMagicExtensions
     {
         //Extension method to translate english to Dev Magic
-        public static string EnglishToDevMagic(this string str) 
+        public static string EnglishToDevMagic(this string str)
         {
             //TODO: implement methond
-         return "EnglishToDevMagic Test: " + str.ToLower();
+            return "EnglishToDevMagic Test: " + str.ToLower();
         }
 
         //Extension method to translate Dev Magic to english
@@ -33,7 +30,7 @@ namespace Tribeca.WebAPI
             "Virgo", "Libra", "Scorpio", "Sagittarius"
         };
 
-            return starSigns[birthMonth-1];
+            return starSigns[birthMonth - 1];
         }
 
     }

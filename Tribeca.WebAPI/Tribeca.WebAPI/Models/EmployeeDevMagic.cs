@@ -1,7 +1,6 @@
-﻿
-namespace Tribeca.WebAPI.Controllers
+﻿namespace Tribeca.WebAPI.Models
 {
-    internal class EmployeeDevMagic
+    public class EmployeeDevMagic
     {
         public int EmployeeId { get; set; }
         public int ClientID { get; set; }
@@ -13,11 +12,9 @@ namespace Tribeca.WebAPI.Controllers
         public string BioAsDevMagic { get; set; }
     }
 
-    internal class EmployeeStarSign
+    public class EmployeeStarSign
     {
-     
         public string EmployeeName { get; set; }
         public string StarSign { get; set; }
-       
     }
 }

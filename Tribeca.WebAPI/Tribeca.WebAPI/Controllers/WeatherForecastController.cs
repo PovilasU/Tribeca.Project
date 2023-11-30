@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Tribeca.WebAPI.Helpers;
 
 namespace Tribeca.WebAPI.Controllers
 {
