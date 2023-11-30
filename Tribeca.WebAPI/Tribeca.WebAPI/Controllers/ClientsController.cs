@@ -15,9 +15,26 @@ namespace Tribeca.WebAPI.Controllers
 
         [HttpGet]
         public IActionResult GetClients()
-        {
-            var clients = clientService.GetAllClients();
-            return Ok(clients);
+        {    
+            var clients = clientService.GetAllClients();          
+            var groupedClients = clients
+                     .GroupBy(c => c.ClientId)
+                     .Select(group => new
+                     {
+                         ClientId = group.Key,
+                         Name = group.First().Name,
+                         Offices = group.Select(office => new
+                         {
+                             OfficeId = office.OfficeID,
+                             Address = office.Address,
+                             IsHeadOffice = office.IsHeadOffice,
+                             EmployeeId = office.EmployeeID,
+                             EmployeeName = office.EmployeeName
+                         }).ToList()
+                     })
+                     .ToList();
+
+            return Ok(groupedClients);
         }
 
         [HttpGet("{id}")]

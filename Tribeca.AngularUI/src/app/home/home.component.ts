@@ -3,6 +3,7 @@ import { CommonModule } from "@angular/common";
 import { ClientsComponent } from "../clients/clients.component";
 import { EmployeesComponent } from "../employees/employees.component";
 import { Client } from "../client";
+import { Office } from "../client";
 import { Employee } from "../employee";
 import { Devmagic } from "../devmagic";
 import { RouterModule } from "@angular/router";
@@ -22,61 +23,49 @@ import { DevMagicService } from "../dev-magic.service";
   ],
   template: `
     <section>
-      <!-- <form>
-        <input type="text" placeholder=" filter" />
-        <button class="primary" type="buton">Search</button>
-      </form> -->
       <section class="results">
         <h2>Clients</h2>
         <table border="1">
-          <tr>
-            <th>clientId</th>
-            <th>Name</th>
-            <th>officeID</th>
-            <th>address</th>
-            <th>isHeadOffice</th>
-            <th>employeeID</th>
-            <th>employeeName</th>
-          </tr>
-          <tr *ngFor="let client of clientList">
-            <td>{{ client.clientId }}</td>
-            <td>{{ client.name }}</td>
-            <td>{{ client.officeID }}</td>
-            <td>{{ client.address }}</td>
-            <td>{{ client.isHeadOffice }}</td>
-            <td>{{ client.employeeID }}</td>
-            <td>{{ client.employeeName }}</td>
-          </tr>
-        </table>
-
-        <h2>Employees</h2>
-        <table border="1">
-          <tr>
-            <th>employeeId</th>
-            <th>Name</th>
-            <th>starSign</th>
-            <th>bioAsDevMagic</th>
-          </tr>
-
-          <tr *ngFor="let employee of employeeList">
-            <td>{{ employee.employeeId }}</td>
-            <td>{{ employee.employeeName }}</td>
-            <td>{{ employee.starSign }}</td>
-            <td>{{ employee.bioAsDevMagic }}</td>
-          </tr>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Offices</th>
+              <th>Employees</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let client of clientList">
+              <td>{{ client.name }}</td>
+              <td>
+                <ul>
+                  <li *ngFor="let office of client.offices">
+                    {{ office.address }}
+                    {{ office.isHeadOffice && "(Head Office)" }}
+                  </li>
+                </ul>
+              </td>
+              <td>
+                <ul>
+                  <li *ngFor="let office of client.offices">
+                    {{ office.employeeName }}, Star Sign:
+                    {{ starSignById(office.employeeId) }}, Bio as Dev Magic:
+                    {{ devMagicBio(office.employeeId) }}
+                  </li>
+                </ul>
+              </td>
+            </tr>
+          </tbody>
         </table>
 
         <h2>DevMagic to English</h2>
         <h3>{{ devmagic }}</h3>
 
-        <!--TODO fix component
-          
+        <!--TODO possible improvements 
         <app-employees
         *ngFor="let employee of employeeList"
         [employee]="employee"
       >
       </app-employees> -->
-
         <!-- <app-clients *ngFor="let client of clientList" [client]="client">
         </app-clients> -->
       </section>
@@ -91,6 +80,22 @@ export class HomeComponent {
   clientsService: ClientsService = inject(ClientsService);
   employeeService: EmployeeService = inject(EmployeeService);
   devmagicService: DevMagicService = inject(DevMagicService);
+
+  starSignById(id: any) {
+    return this.employeeList.find((office) => office.employeeId === id)
+      ?.starSign;
+  }
+  devMagicBio(id: any) {
+    let bio = this.employeeList.find(
+      (office) => office.employeeId === id
+    )?.bioAsDevMagic;
+
+    if (bio) {
+      return bio?.charAt(0).toUpperCase() + bio.slice(1);
+    } else {
+      return "";
+    }
+  }
   constructor() {
     this.clientsService.getAllClients().then((clientlientList: Client[]) => {
       this.clientList = clientlientList;
@@ -101,5 +106,8 @@ export class HomeComponent {
     this.devmagicService.getDevmagic().then((devmagic: Devmagic) => {
       this.devmagic = devmagic;
     });
+    const starSign = this.employeeList.find(
+      (office) => office.employeeId === 1
+    )?.starSign;
   }
 }
