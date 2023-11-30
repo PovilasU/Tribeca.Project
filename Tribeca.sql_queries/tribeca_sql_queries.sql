@@ -122,3 +122,16 @@ LEFT JOIN
     Employees E ON O.OfficeID = E.OfficeID
 ORDER BY
      C.ClientId, O.IsHeadOffice DESC, E.EmployeeID;
+	 
+	 
+	 
+	 select * from Clients
+	 select * from Offices
+	 select * from Employees 
+
+
+
+	 select Address from Clients c 
+	 left join Offices o on c.ClientId = o.ClientID
+	 where C.ClientId = 2
+	 order by c.ClientId, O.IsHeadOffice desc

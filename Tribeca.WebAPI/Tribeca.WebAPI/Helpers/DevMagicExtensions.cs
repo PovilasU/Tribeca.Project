@@ -1,6 +1,8 @@
 ﻿namespace Tribeca.WebAPI.Helpers
 {
-    static class EnglishToDevMagicExtensions
+
+
+    static class DevMagicExtensions
     {
         //Extension method to translate english to Dev Magic
         public static string EnglishToDevMagic(this string str)

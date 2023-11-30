@@ -20,6 +20,9 @@ namespace Tribeca.WebAPI.Controllers
         [HttpGet]
         public IActionResult GetEmployees()
         {
+
+            IDevMagicService devMagicService = new DevMagicService();
+
             var employees = employeeService.GetAllEmployees();
 
             // include StarSign and devMagic bio fields to employees
@@ -32,12 +35,10 @@ namespace Tribeca.WebAPI.Controllers
                 Bio = employee.Bio,
                 DateOfBirth = employee.DateOfBirth,
                 StarSign = employee.DateOfBirth.ToString().StarSign(),
-                BioAsDevMagic = "BioAsDevMagic".EnglishToDevMagic()
+                BioAsDevMagic = devMagicService.TransformToDevMagic(employee.Bio)         
             });
 
             return Ok(employeesDevMagic);
-
-
         }
 
         [HttpGet("{name}")]
