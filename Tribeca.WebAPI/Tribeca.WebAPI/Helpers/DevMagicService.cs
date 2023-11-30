@@ -35,13 +35,13 @@
             {
                 word = TransformConsonantStartingWord(word);
             }
-          
+
             if (punctuation != '\0')
             {
                 word += punctuation;
             }
 
-            return word.ToLower(); 
+            return word.ToLower();
         }
 
         private string TransformVowelStartingWord(string word)
@@ -96,6 +96,84 @@
         {
             return "aeiouAEIOU".IndexOf(c) >= 0;
         }
+
+
+        // tranform from devmagic to english
+
+        public string TransformFromDevMagic(string input)
+        {
+            var words = input.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            var transformedWords = words.Select(word => RemoveYFromBeginning(TransformWordToEng(word))).ToArray();
+
+            return string.Join(" ", transformedWords);
+        }
+
+
+        static string RemoveYFromBeginning(string input)
+        {
+            if (input.Length > 0 && char.ToLower(input[0]) == 'y')
+            {
+
+                return input.Substring(1);
+            }
+            else
+            {
+                return input;
+            }
+        }
+
+
+        public string TransformWordToEng(string word)
+        {
+
+            if (string.IsNullOrEmpty(word))
+            {
+                return word;
+            }
+
+
+            char lastChar = word[word.Length - 1];
+            char punctuation = '\0';
+
+            if (char.IsPunctuation(lastChar))
+            {
+                punctuation = lastChar;
+                word = word.Substring(0, word.Length - 1);
+            }
+
+
+            string transformedWord = TransformWordEng(word);
+
+
+            if (punctuation != '\0')
+            {
+                transformedWord += punctuation;
+            }
+
+            return transformedWord;
+        }
+
+        private string TransformWordEng(string word)
+        {
+
+            if (word.EndsWith("ay", StringComparison.OrdinalIgnoreCase))
+            {
+                word = word.Substring(0, word.Length - 2);
+            }
+
+
+            if (word.Length > 1 && char.IsLetter(word[word.Length - 1]) && char.IsLetter(word[word.Length - 2]))
+            {
+                char lastChar = word[word.Length - 1];
+                char secondLastChar = word[word.Length - 2];
+
+                word = lastChar + word.Substring(0, word.Length - 2) + secondLastChar;
+            }
+            string lowercasedWord = word.ToLower();
+
+            return lowercasedWord;
+        }
+
     }
 }
 
