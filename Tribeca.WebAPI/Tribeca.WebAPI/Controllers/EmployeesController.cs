@@ -44,7 +44,7 @@ namespace Tribeca.WebAPI.Controllers
         [HttpGet("{name}")]
         public IActionResult GetEmployeeStarSign(string name)
         {
-
+            IDevMagicService devMagicService = new DevMagicService();
             var emploeyee = employeeService.GetEmployeeStarSign(name);
 
             var employeeDevMagic = emploeyee.Select(employee => new EmployeeStarSign
@@ -52,7 +52,8 @@ namespace Tribeca.WebAPI.Controllers
            
                 EmployeeName = employee.Name,         
                 StarSign = employee.DateOfBirth.ToString().StarSign(),
-                
+                BioAsDevMagic = devMagicService.TransformToDevMagic(employee.Bio)
+
             });
 
 

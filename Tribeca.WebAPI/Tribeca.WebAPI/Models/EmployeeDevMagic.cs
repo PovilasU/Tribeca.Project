@@ -16,5 +16,6 @@
     {
         public string EmployeeName { get; set; }
         public string StarSign { get; set; }
+        public string BioAsDevMagic { get; internal set; }
     }
 }
