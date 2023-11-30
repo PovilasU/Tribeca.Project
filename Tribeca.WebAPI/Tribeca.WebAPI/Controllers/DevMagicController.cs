@@ -14,16 +14,10 @@ namespace Tribeca.WebAPI.Controllers
         [HttpGet]
         public string Get()
         {
-
-            // return "evday agicmay isyay osay easyyay , iyay ovelay ityay ! it'syay efinitelyday otnay ayay opycay andyay astepay ofyay igpay atinlay!".DevMagicToEnglish();
-
-            //  TransformFromDevMagic
-            IDevMagicService devMagicService = new DevMagicService();
-           // BioAsDevMagic = devMagicService.TransformToDevMagic(employee.Bio)
-                string devmagicStr = "evday agicmay isyay osay easyyay , iyay ovelay ityay ! it'syay efinitelyday otnay ayay opycay andyay astepay ofyay igpay atinlay!";
-                //string devmagicStr = "agicmay";
-            return devMagicService.TransformFromDevMagic(devmagicStr);
-            //TransformFromDevMagic
+     
+            IDevMagicService devMagicService = new DevMagicService();          
+            string devmagicStr = "evday agicmay isyay osay easyyay , iyay ovelay ityay ! it'syay efinitelyday otnay ayay opycay andyay astepay ofyay igpay atinlay!";
+            return devMagicService.TransformFromDevMagic(devmagicStr);         
         }
     }
 }

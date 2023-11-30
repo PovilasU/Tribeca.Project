@@ -1,6 +1,6 @@
 ﻿namespace Tribeca.WebAPI.Helpers
 {
-    class DevMagicService : IDevMagicService
+    public class DevMagicService : IDevMagicService
     {
 
         // Extensions tranform english to dev magic, dev magic to english and get star sign
