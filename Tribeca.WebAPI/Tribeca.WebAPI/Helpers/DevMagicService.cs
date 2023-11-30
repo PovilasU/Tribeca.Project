@@ -44,7 +44,6 @@
             return word.ToLower(); 
         }
 
-
         private string TransformVowelStartingWord(string word)
         {
             return ProcessTransformedWord(word + "yay");
