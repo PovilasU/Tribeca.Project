@@ -37,12 +37,12 @@ import { DevMagicService } from "../dev-magic.service";
           <tr *ngFor="let client of clientList">
             <td>{{ client.name }}</td>
             <td>
-              <!-- <ul> -->
-              <li *ngFor="let office of client.offices">
-                {{ office.address }}
-                {{ office.isHeadOffice && "(Head Office)" }}
-              </li>
-              <!-- </ul> -->
+              <ul>
+                <li *ngFor="let office of client.offices">
+                  {{ office.address }}
+                  {{ office.isHeadOffice && "(Head Office)" }}
+                </li>
+              </ul>
             </td>
             <td>
               <ul>
