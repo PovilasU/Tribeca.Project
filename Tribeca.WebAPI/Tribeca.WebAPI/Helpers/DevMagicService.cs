@@ -61,30 +61,40 @@
             }
         }
 
-        private string TransformConsonantStartingWord(string word)
+
+        public string TransformConsonantStartingWord(string word)
         {
             int firstVowelIndex = FindFirstVowelIndex(word);
+
             if (firstVowelIndex == -1)
             {
                 return ProcessTransformedWord(word + "ay");
             }
-            return ProcessTransformedWord(word.Substring(firstVowelIndex) + word.Substring(0, firstVowelIndex) + "ay");
+
+            string transformedWord = word.Substring(firstVowelIndex) + word.Substring(0, firstVowelIndex) + "ay";
+
+            return ProcessTransformedWord(transformedWord);
         }
 
-        private string ProcessTransformedWord(string transformedWord)
+
+
+        public string ProcessTransformedWord(string transformedWord)
         {
-            if (transformedWord.Contains("!"))
+            int exclamationCount = transformedWord.Count(c => c == '!');
+
+            if (exclamationCount > 0)
             {
-                transformedWord = transformedWord.Replace("!", "") + "!";
+                transformedWord = transformedWord.Replace("!", "") + new string('!', exclamationCount);
             }
+
             return transformedWord;
         }
 
-        private int FindFirstVowelIndex(string word)
-        {
+        public int FindFirstVowelIndex(string word)
+        {    
             for (int i = 0; i < word.Length; i++)
             {
-                if (IsVowel(word[i]))
+                if ("aeiouAEIOU".Contains(word[i]))
                 {
                     return i;
                 }
@@ -92,7 +102,7 @@
             return -1;
         }
 
-        private bool IsVowel(char c)
+        public bool IsVowel(char c)
         {
             return "aeiouAEIOU".IndexOf(c) >= 0;
         }
@@ -109,7 +119,7 @@
         }
 
 
-        static string RemoveYFromBeginning(string input)
+        public string RemoveYFromBeginning(string input)
         {
             if (input.Length > 0 && char.ToLower(input[0]) == 'y')
             {

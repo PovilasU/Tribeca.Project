@@ -1,5 +1,4 @@
---thinking process
-
+--SQL queries
 -- 1. create database "tribeca_test"
 CREATE DATABASE tribeca_test;
 
@@ -22,9 +21,6 @@ CREATE TABLE Offices (
 	IsHeadOffice bit NULL DEFAULT 0,	
     FOREIGN KEY (ClientID) REFERENCES Clients(ClientID)
 );
-
--- 4. create table "Employees"
-
 
 -- 4. create table "Employees"
 CREATE TABLE Employees (
@@ -82,7 +78,7 @@ CREATE TABLE Employees (
     EmpAddress VARCHAR(255) NOT NULL,
 );
 
---testing ends
+
 
 
 SELECT
@@ -135,3 +131,5 @@ ORDER BY
 	 left join Offices o on c.ClientId = o.ClientID
 	 where C.ClientId = 2
 	 order by c.ClientId, O.IsHeadOffice desc
+	 
+ --testing ends

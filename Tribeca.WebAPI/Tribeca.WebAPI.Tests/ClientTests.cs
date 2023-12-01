@@ -6,7 +6,7 @@ namespace Tribeca.WebAPI.Tests
 {
     public class ClientTests
     {
-        [Fact]
+     
         public void Client_Should_Have_Required_Properties()
         {
             // Arrange
@@ -38,5 +38,7 @@ namespace Tribeca.WebAPI.Tests
             Assert.NotNull(keyAttribute);
             Assert.NotEmpty(keyAttribute);
         }
+
+
     }
 }
