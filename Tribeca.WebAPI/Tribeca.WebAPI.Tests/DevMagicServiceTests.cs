@@ -116,5 +116,54 @@ namespace Tribeca.WebAPI.Tests
             Assert.Equal(expectedResult, result);
         }
 
+
+        [Theory]
+        [InlineData("apple", "appleyay")]        // Single vowel word
+        [InlineData("orange", "orangeyay")]     // Single vowel word
+        [InlineData("ELEPHANT", "elephantyay")] // Mixed case, single vowel word
+        [InlineData("ivory", "ivoryyay")]       // Single vowel word
+        [InlineData("octopus", "octopusyay")]   // Single vowel word
+        [InlineData("Umbrella", "umbrellayay")] // Mixed case, single vowel word
+        [InlineData("Y", "yyay")]               // Single 'Y' word
+        [InlineData("y", "yyay")]               // Single 'y' word
+        [InlineData("", "yay")]                 // Empty string, should return "yay"
+        [InlineData("!Hello!", "helloyay!!")]   // Word with punctuation, should preserve punctuation
+        public void TransformVowelStartingWord_ShouldReturnExpectedResult(string input, string expectedResult)
+        {
+            // Arrange
+            DevMagicService devMagicService = new DevMagicService(); // Assuming you have an instance of DevMagicService
+
+            // Act
+            string result = devMagicService.TransformVowelStartingWord(input);
+
+            // Assert
+            Assert.Equal(expectedResult, result);
+        }
+
+
+        [Theory]
+        [InlineData("hello", "ellohay")]                 // Consonant starting word with a vowel later
+        [InlineData("world", "orldway")]                 // Consonant starting word with no vowel later
+        [InlineData("apple", "appleyay")]                // Vowel starting word
+        [InlineData("banana", "ananabay")]               // Vowel starting word   
+        [InlineData("start", "artstay")]               // Consonant starting word with punctuation
+        [InlineData("YelloW", "ellowyay")]               // Mixed case, 'Y' followed by a vowel
+        [InlineData("Y", "yay")]                         // Single 'Y'
+        [InlineData("ivory!", "ivoryyay!")]             // Vowel starting word with punctuation
+        [InlineData("XYZ", "yzxay")]                    
+        [InlineData("", "")]                           // Empty string, should return ""
+        [InlineData("rhythm", "ythmrhay")]               // Consonant starting word with no vowel
+        [InlineData("coding.", "odingcay.")]             // Consonant starting word with punctuation
+        public void TransformWord_ShouldReturnExpectedResult(string input, string expectedResult)
+        {
+            // Arrange
+            DevMagicService devMagicService = new DevMagicService(); // Assuming you have an instance of DevMagicService
+
+            // Act
+            string result = devMagicService.TransformWord(input);
+
+            // Assert
+            Assert.Equal(expectedResult, result);
+        }
     }
 }

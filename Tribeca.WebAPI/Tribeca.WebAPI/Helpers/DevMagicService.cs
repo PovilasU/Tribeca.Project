@@ -1,4 +1,5 @@
 ﻿using System.Text.RegularExpressions;
+using Tribeca.WebAPI.Migrations;
 
 namespace Tribeca.WebAPI.Helpers
 {
@@ -14,54 +15,86 @@ namespace Tribeca.WebAPI.Helpers
             return string.Join(" ", transformedWords);
         }
 
-        private string TransformWord(string word)
+        public string TransformWord(string word)
         {
-            char lastChar = word[word.Length - 1];
+            if (!string.IsNullOrEmpty(word))
+            {
+                if (word.Length == 1 && (word[0] == 'Y' || word[0] == 'y'))
+                {
+                    return "yay";
+                }
 
-            char punctuation = '\0';
-            if (lastChar == '!' || lastChar == ',' || lastChar == '.')
-            {
-                punctuation = lastChar;
-                word = word.Substring(0, word.Length - 1);
+                if (IsWordStartsWithYandMoreThanTwoChar(word))
+                {
+                   
+                    return TransformYStartingWord(word).ToLower();
+                }
+
+                bool startsWithConsonantClusterAndY = Regex.IsMatch(word, @"^[^aeiouAEIOU]+y", RegexOptions.IgnoreCase);
+
+                if (startsWithConsonantClusterAndY)
+                {
+                    return TransformYStartingWord(word).ToLower();
+                }
+
+                char lastChar = word[word.Length - 1];
+                char punctuation = '\0';
+
+                if (lastChar == '!' || lastChar == ',' || lastChar == '.')
+                {
+                    punctuation = lastChar;
+                    word = word.Substring(0, word.Length - 1);
+                }
+
+                if (IsVowel(word[0]))
+                {
+                    word = TransformVowelStartingWord(word);
+                }
+                else if (word[0] == 'y' || word[0] == 'Y')
+                {
+                    word = TransformYStartingWord(word);
+                }
+                else
+                {
+                    word = TransformConsonantStartingWord(word);
+                }
+
+                if (punctuation != '\0')
+                {
+                    word += punctuation;
+                }
+
+                return word.ToLower();
             }
 
-            if (IsVowel(word[0]))
-            {
-                word = TransformVowelStartingWord(word);
-            }
-            else if (word[0] == 'y' || word[0] == 'Y')
-            {
-                word = TransformYStartingWord(word);
-            }
-            else
-            {
-                word = TransformConsonantStartingWord(word);
-            }
-
-            if (punctuation != '\0')
-            {
-                word += punctuation;
-            }
-
-            return word.ToLower();
+            return word;
         }
 
-        private string TransformVowelStartingWord(string word)
+        private static bool IsWordStartsWithYandMoreThanTwoChar(string word)
         {
-            return ProcessTransformedWord(word + "yay");
+            return word.Length > 1 && (word[0] == 'y' || word[0] == 'Y');
+        }
+
+        public string TransformVowelStartingWord(string word)
+        {
+           
+            return ProcessTransformedWord(word.ToLower() + "yay");
         }
 
         public string TransformYStartingWord(string word)
         {
-            // First check if 
-            //When the letter ‘Y’
-            //appears in the second position of a word,
-            //the standard rules for word formation
+       /*   word = word.ToLower();
+            First check if 
+            When the letter ‘Y’
+            appears in the second position of a word,
+            the standard rules for word formation*/
+          
 
             bool startsWithConsonantClusterAndY = Regex.IsMatch(word, @"^[^aeiouAEIOU]+y", RegexOptions.IgnoreCase);
 
                 if (startsWithConsonantClusterAndY)
                 {
+              
            
                 static string GetConsonantCluster(string word)
                 {
@@ -105,7 +138,7 @@ namespace Tribeca.WebAPI.Helpers
 
             if (word.Length > 1 && (word[1] == 'Y' || word[1] == 'y'))
             {
-                Console.WriteLine("The second character is Y or y.");
+                                
                 return ProcessTransformedWord(word.Substring(1) + word[0] + "ay").ToLower();
             }
  
@@ -113,10 +146,12 @@ namespace Tribeca.WebAPI.Helpers
 
             if (word.Length > 1 && IsVowel(word[1]))
             {
+              
                 return ProcessTransformedWord(word.Substring(1) + word[0] + "ay").ToLower();
             }
             else
             {
+               
                 return ProcessTransformedWord(TransformVowelStartingWord(word).ToLower());
             }
         }
@@ -200,7 +235,6 @@ namespace Tribeca.WebAPI.Helpers
             {
                 return word;
             }
-
 
             char lastChar = word[word.Length - 1];
             char punctuation = '\0';
