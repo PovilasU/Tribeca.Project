@@ -5,7 +5,7 @@ const routeConfig: Routes = [
   {
     path: "",
     component: HomeComponent,
-    title: "Home page",
+    title: "Tribeca page",
   },
   {
     path: "details/:id",

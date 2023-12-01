@@ -10,7 +10,7 @@ import { RouterModule } from "@angular/router";
   template: `
     <section class="listing">
       <img class="listing-photo" src="" />
-      <h2 class="listing-heading">ClientId123: {{ client.clientId }}</h2>
+      <h2 class="listing-heading">ClientId: {{ client.clientId }}</h2>
       <p class="listing-location">Client Name: {{ client.name }}</p>
 
       <a [routerLink]="['/details', client.clientId]"> details</a>
@@ -21,11 +21,3 @@ import { RouterModule } from "@angular/router";
 export class ClientsComponent {
   @Input() client!: Client;
 }
-
-// clientId: number;
-// officeID: number;
-// address: string;
-// isHeadOffice: boolean;
-// name: string;
-// employeeID: number;
-// employeeName: string;

@@ -25,7 +25,7 @@ export class DetailsComponent {
 
   constructor() {
     const clientId = Number(this.route.snapshot.params["id"]);
-    // this.client = this.clientsService.getClienById(clientId);
+
     this.clientsService.getClienById(clientId).then((client) => {
       this.client = client;
     });
