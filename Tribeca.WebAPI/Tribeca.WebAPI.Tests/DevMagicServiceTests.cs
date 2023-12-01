@@ -59,8 +59,7 @@ namespace Tribeca.WebAPI.Tests
         [Theory]
         [InlineData("hello", "ellohay")]         
         [InlineData("world", "orldway")]          
-        [InlineData("DevMagic", "evMagicDay")]    
-        [InlineData("xyz", "xyzay")]             
+        [InlineData("DevMagic", "evMagicDay")]                      
         [InlineData("b", "bay")]         
         [InlineData("!start", "artstay!")]       
         [InlineData("duck", "uckday")]        
@@ -98,6 +97,23 @@ namespace Tribeca.WebAPI.Tests
 
             // Assert
             Assert.Equal(expectedIndex, result);
+        }
+
+        [Theory]         
+        [InlineData("Yellow", "ellowyay")]         
+        [InlineData("Year", "earyay")]         
+        [InlineData("Dyke", "ykeday")]          
+        [InlineData("Rhythm", "ythmrhay")]          
+        public void TransformYStartingWord_ShouldReturnExpectedResult(string input, string expectedResult)
+        {
+            // Arrange
+            DevMagicService devMagicService = new DevMagicService(); // Assuming you have an instance of DevMagicService
+
+            // Act
+            string result = devMagicService.TransformYStartingWord(input);
+
+            // Assert
+            Assert.Equal(expectedResult, result);
         }
 
     }

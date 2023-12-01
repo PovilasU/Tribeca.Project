@@ -1,4 +1,6 @@
-﻿namespace Tribeca.WebAPI.Helpers
+﻿using System.Text.RegularExpressions;
+
+namespace Tribeca.WebAPI.Helpers
 {
     public class DevMagicService : IDevMagicService
     {
@@ -49,15 +51,73 @@
             return ProcessTransformedWord(word + "yay");
         }
 
-        private string TransformYStartingWord(string word)
+        public string TransformYStartingWord(string word)
         {
+            // First check if 
+            //When the letter ‘Y’
+            //appears in the second position of a word,
+            //the standard rules for word formation
+
+            bool startsWithConsonantClusterAndY = Regex.IsMatch(word, @"^[^aeiouAEIOU]+y", RegexOptions.IgnoreCase);
+
+                if (startsWithConsonantClusterAndY)
+                {
+           
+                static string GetConsonantCluster(string word)
+                {
+                    if (!string.IsNullOrEmpty(word))
+                    {
+                        int indexY = -1;
+                       
+                        for (int i = 0; i < word.Length; i++)
+                        {
+                            char currentChar = word[i];
+                            if (currentChar == 'Y' || currentChar == 'y')
+                            {
+                                indexY = i;
+                                break;
+                            }
+                        }
+                   
+                        if (indexY > 0)
+                        {               
+                            for (int i = 0; i < indexY; i++)
+                            {
+                                if ("aeiouyY".IndexOf(word[i]) >= 0)
+                                {
+                                    return null; 
+                                }
+                            }
+                       
+                            return word.Substring(0, indexY);
+                        }
+                    }
+
+                    return null; 
+                }
+                            
+                string resultString = word.Replace(GetConsonantCluster(word), string.Empty);
+                string devMagicWord = resultString + GetConsonantCluster(word).ToLower() + "ay";
+
+                return devMagicWord;              
+            }
+
+
+            if (word.Length > 1 && (word[1] == 'Y' || word[1] == 'y'))
+            {
+                Console.WriteLine("The second character is Y or y.");
+                return ProcessTransformedWord(word.Substring(1) + word[0] + "ay").ToLower();
+            }
+ 
+
+
             if (word.Length > 1 && IsVowel(word[1]))
             {
-                return ProcessTransformedWord(word.Substring(1) + word[0] + "ay");
+                return ProcessTransformedWord(word.Substring(1) + word[0] + "ay").ToLower();
             }
             else
             {
-                return ProcessTransformedWord(TransformVowelStartingWord(word));
+                return ProcessTransformedWord(TransformVowelStartingWord(word).ToLower());
             }
         }
 
