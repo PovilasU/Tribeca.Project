@@ -1,16 +1,107 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed } from "@angular/core/testing";
+import { ClientsService } from "./clients.service";
+import { Client, Office } from "./client";
+import { of } from "rxjs";
 
-import { ClientsService } from './clients.service';
-
-describe('ClientsService', () => {
+describe("ClientsService", () => {
   let service: ClientsService;
+  let clientsService: ClientsService;
+  let httpClientSpy: { get: jasmine.Spy };
+
+  // beforeEach(() => {
+  //   TestBed.configureTestingModule({
+  //   });
+  //   service = TestBed.inject(ClientsService);
+  // });
+
+  // it('should be created', () => {
+  //   expect(service).toBeTruthy();
+  // });
+
+  //
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(ClientsService);
+    httpClientSpy = jasmine.createSpyObj("HttpClient", ["get"]);
+
+    TestBed.configureTestingModule({
+      providers: [ClientsService],
+    });
+
+    clientsService = TestBed.inject(ClientsService);
   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
+  it("should be created", () => {
+    expect(clientsService).toBeTruthy();
   });
+
+  it("should return an array of clients", (done) => {
+    const mockClients: Client[] = [
+      {
+        clientId: 1,
+        name: "Client 1",
+        offices: [
+          {
+            officeId: 1,
+            address: "Address 1",
+            isHeadOffice: true,
+            employeeId: 101,
+            employeeName: "John Doe",
+          },
+          {
+            officeId: 2,
+            address: "Address 2",
+            isHeadOffice: false,
+            employeeId: 102,
+            employeeName: "Jane Doe",
+          },
+        ],
+      },
+      // Add more clients as needed
+    ];
+
+    httpClientSpy.get.and.returnValue(of(mockClients));
+
+    clientsService.getAllClients().then((clients) => {
+      expect(clients).toEqual(mockClients);
+      done();
+    });
+  });
+
+  it("should return a client by ID", (done) => {
+    const mockClient: Client = {
+      clientId: 1,
+      name: "Client A",
+      offices: [
+        {
+          officeId: 3,
+          address: "11 Spooner Road",
+          isHeadOffice: true,
+          employeeId: 3,
+          employeeName: "Peter Fisher",
+        },
+        {
+          officeId: 1,
+          address: "123 Street",
+          isHeadOffice: false,
+          employeeId: 1,
+          employeeName: "Sam Fisher",
+        },
+        {
+          officeId: 2,
+          address: "66 Road",
+          isHeadOffice: false,
+          employeeId: 2,
+          employeeName: "John Fisher",
+        },
+      ],
+    };
+
+    httpClientSpy.get.and.returnValue(of(mockClient));
+
+    clientsService.getClienById(1).then((client) => {
+      expect(client).toEqual(mockClient);
+      done();
+    });
+  });
+  //
 });
