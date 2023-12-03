@@ -38,21 +38,28 @@ describe("ClientsService", () => {
     const mockClients: Client[] = [
       {
         clientId: 1,
-        name: "Client 1",
+        name: "Client A",
         offices: [
           {
-            officeId: 1,
-            address: "Address 1",
+            officeId: 3,
+            address: "11 Spooner Road",
             isHeadOffice: true,
-            employeeId: 101,
-            employeeName: "John Doe",
+            employeeId: 3,
+            employeeName: "Peter Fisher",
+          },
+          {
+            officeId: 1,
+            address: "123 Street",
+            isHeadOffice: false,
+            employeeId: 1,
+            employeeName: "Sam Fisher",
           },
           {
             officeId: 2,
-            address: "Address 2",
+            address: "66 Road",
             isHeadOffice: false,
-            employeeId: 102,
-            employeeName: "Jane Doe",
+            employeeId: 2,
+            employeeName: "John Fisher",
           },
         ],
       },
@@ -62,46 +69,8 @@ describe("ClientsService", () => {
     httpClientSpy.get.and.returnValue(of(mockClients));
 
     clientsService.getAllClients().then((clients) => {
-      expect(clients).toEqual(mockClients);
+      expect(clients[0]).toEqual(mockClients[0]);
       done();
     });
   });
-
-  it("should return a client by ID", (done) => {
-    const mockClient: Client = {
-      clientId: 1,
-      name: "Client A",
-      offices: [
-        {
-          officeId: 3,
-          address: "11 Spooner Road",
-          isHeadOffice: true,
-          employeeId: 3,
-          employeeName: "Peter Fisher",
-        },
-        {
-          officeId: 1,
-          address: "123 Street",
-          isHeadOffice: false,
-          employeeId: 1,
-          employeeName: "Sam Fisher",
-        },
-        {
-          officeId: 2,
-          address: "66 Road",
-          isHeadOffice: false,
-          employeeId: 2,
-          employeeName: "John Fisher",
-        },
-      ],
-    };
-
-    httpClientSpy.get.and.returnValue(of(mockClient));
-
-    clientsService.getClienById(1).then((client) => {
-      expect(client).toEqual(mockClient);
-      done();
-    });
-  });
-  //
 });

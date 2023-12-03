@@ -24,14 +24,19 @@ export class ClientsService {
   }
 
   async getClienById(id: number): Promise<Client | undefined> {
+    console.log("i was fired");
+    console.log(`${this.url}/${id}`);
     try {
       const data = await fetch(`${this.url}/${id}`);
 
       if (!data.ok) {
         throw new Error(`HTTP error! Status: ${data.status}`);
       }
-
-      return await data.json();
+      console.log("i was fired1");
+      console.log(await data.json());
+      console.log("i was fired2");
+      //return await data.json();
+      return (await data.json()) || [];
     } catch (error) {
       console.error("Error fetching client by ID:", error);
       return undefined;
