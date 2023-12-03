@@ -6,6 +6,9 @@ const Clients = () => {
   const [employees, setEmployees] = useState([]);
   const [loadingEmployees, setLoadingEmployees] = useState(true);
 
+  const [devMagic, setDevMagic] = useState([]);
+  const [loadingdevMagic, setLoadingDevMagic] = useState(true);
+
   useEffect(() => {
     const fetchClients = async () => {
       try {
@@ -17,7 +20,7 @@ const Clients = () => {
 
         const result = await response.json();
         setClients(result);
-        console.log(result);
+        // console.log(result);
         setLoadingClients(false);
       } catch (error) {
         console.error("Error fetching clients data:", error);
@@ -39,7 +42,7 @@ const Clients = () => {
 
         const result = await response.json();
         setEmployees(result);
-        console.log(result);
+
         setLoadingEmployees(false);
       } catch (error) {
         console.error("Error fetching employees data:", error);
@@ -50,12 +53,34 @@ const Clients = () => {
     fetchEmployees();
   }, []);
 
+  useEffect(() => {
+    const fetchDevMagic = async () => {
+      try {
+        const response = await fetch("https://localhost:7264/api/DevMagic");
+
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const result = await response.text();
+
+        setDevMagic(result);
+
+        setLoadingDevMagic(false);
+      } catch (error) {
+        console.error("Error fetching DevMagic data:", error);
+        setLoadingDevMagic(false);
+      }
+    };
+
+    fetchDevMagic();
+  }, []);
+
   return (
     <>
       <h1>Clients</h1>
 
       <div>
-        {loadingClients || loadingEmployees ? (
+        {loadingClients && loadingEmployees && loadingdevMagic ? (
           <p>Loading...</p>
         ) : (
           <table border="1">
@@ -100,6 +125,11 @@ const Clients = () => {
             </tbody>
           </table>
         )}
+
+        <h2>Dev Magic to English</h2>
+        <div className="current-weather module">
+          <h3>{devMagic}</h3>
+        </div>
       </div>
     </>
   );
