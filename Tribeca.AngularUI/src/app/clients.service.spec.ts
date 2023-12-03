@@ -8,18 +8,6 @@ describe("ClientsService", () => {
   let clientsService: ClientsService;
   let httpClientSpy: { get: jasmine.Spy };
 
-  // beforeEach(() => {
-  //   TestBed.configureTestingModule({
-  //   });
-  //   service = TestBed.inject(ClientsService);
-  // });
-
-  // it('should be created', () => {
-  //   expect(service).toBeTruthy();
-  // });
-
-  //
-
   beforeEach(() => {
     httpClientSpy = jasmine.createSpyObj("HttpClient", ["get"]);
 

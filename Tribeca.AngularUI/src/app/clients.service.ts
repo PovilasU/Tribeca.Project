@@ -32,10 +32,6 @@ export class ClientsService {
       if (!data.ok) {
         throw new Error(`HTTP error! Status: ${data.status}`);
       }
-      console.log("i was fired1");
-      console.log(await data.json());
-      console.log("i was fired2");
-      //return await data.json();
       return (await data.json()) || [];
     } catch (error) {
       console.error("Error fetching client by ID:", error);
