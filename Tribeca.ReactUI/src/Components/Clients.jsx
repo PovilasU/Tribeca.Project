@@ -58,11 +58,37 @@ const Clients = () => {
         {loadingClients || loadingEmployees ? (
           <p>Loading...</p>
         ) : (
-          <ul>
-            {clients.map((client) => (
-              <li key={client.name}>{client.name}</li>
-            ))}
-          </ul>
+          clients.map((client) => {
+            const filteredEmployees = employees.filter((employee) => {
+              return employee.clientID === client.clientId;
+            });
+
+            return (
+              <div key={client.name}>
+                <h2>{client.name}</h2>
+                <h2>{client.employeeID}</h2>
+                <ul>
+                  {client.offices.map((office) => {
+                    if (office.isHeadOffice)
+                      return (
+                        <li key={office.address}>
+                          {office.address} (Head Office)
+                        </li>
+                      );
+                    else return <li key={office.address}>{office.address}</li>;
+                  })}
+                </ul>
+                <ul>
+                  {filteredEmployees.map((employee) => (
+                    <li key={employee.employeeId}>
+                      {employee.employeeName} Star Sign: {employee.starSign}{" "}
+                      Bio: {employee.bioAsDevMagic}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            );
+          })
         )}
       </div>
     </>
