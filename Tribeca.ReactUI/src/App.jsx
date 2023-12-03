@@ -1,29 +1,39 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Clients from "./Components/Clients";
 import "./App.css";
+import About from "./Components/About";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <>
+    <BrowserRouter>
       <div id="wrapper">
+        <header className="module">
+          <h1 id="logo">Clients App</h1>
+          <nav>
+            <Link to="/">App</Link>
+            <Link to="/about">About</Link>
+          </nav>
+        </header>
         <main>
-          <header className="module">
-            <h1>Clients App in ReactJS</h1>
-          </header>
-
-          <section className="content">
-            <Clients />
-          </section>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <>
+                  <Clients />
+                </>
+              }
+            />
+            <Route path="/about" element={<About />} />
+          </Routes>
         </main>
-
         <footer>
           <p>Author: Povilas Urbonas</p>
           &copy; 2023
         </footer>
       </div>
-    </>
+    </BrowserRouter>
   );
 }
 
