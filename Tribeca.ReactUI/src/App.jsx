@@ -7,9 +7,22 @@ function App() {
 
   return (
     <>
-      <Clients />
+      <div id="wrapper">
+        <main>
+          <header className="module">
+            <h1>Clients App in ReactJS</h1>
+          </header>
 
-      <p>Clients App</p>
+          <section className="content">
+            <Clients />
+          </section>
+        </main>
+
+        <footer>
+          <p>Author: Povilas Urbonas</p>
+          &copy; 2023
+        </footer>
+      </div>
     </>
   );
 }
