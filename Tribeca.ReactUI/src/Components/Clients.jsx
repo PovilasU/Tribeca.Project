@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { fetchClients, fetchEmployees, fetchDevMagic } from "../api";
 import DevMagicToEnglish from "./DevMagicToEnglish";
 
 const Clients = () => {
@@ -12,74 +13,20 @@ const Clients = () => {
   const [loadingdevMagic, setLoadingDevMagic] = useState(true);
 
   useEffect(() => {
-    const fetchClients = async () => {
-      try {
-        const response = await fetch("https://localhost:7264/api/Clients");
-
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-
-        const result = await response.json();
-        setClients(result);
-
-        setLoadingClients(false);
-      } catch (error) {
-        console.error("Error fetching clients data:", error);
-        setLoadingClients(false);
-      }
-    };
-
-    fetchClients();
+    fetchClients(setClients, setLoadingClients);
   }, []);
 
   useEffect(() => {
-    const fetchEmployees = async () => {
-      try {
-        const response = await fetch("https://localhost:7264/api/Employees");
-
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-
-        const result = await response.json();
-        setEmployees(result);
-
-        setLoadingEmployees(false);
-      } catch (error) {
-        console.error("Error fetching employees data:", error);
-        setLoadingEmployees(false);
-      }
-    };
-
-    fetchEmployees();
+    fetchEmployees(setEmployees, setLoadingEmployees);
   }, []);
 
   useEffect(() => {
-    const fetchDevMagic = async () => {
-      try {
-        const response = await fetch("https://localhost:7264/api/DevMagic");
-
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const result = await response.text();
-
-        setDevMagic(result);
-
-        setLoadingDevMagic(false);
-      } catch (error) {
-        console.error("Error fetching DevMagic data:", error);
-        setLoadingDevMagic(false);
-      }
-    };
-
-    fetchDevMagic();
+    fetchDevMagic(setDevMagic, setLoadingDevMagic);
   }, []);
 
   return (
     <>
-      <section className="current-weather module">
+      <section className="clients-table module">
         <h1>Clients</h1>
 
         <div>
@@ -130,7 +77,6 @@ const Clients = () => {
           )}
         </div>
       </section>
-
       <DevMagicToEnglish devMagic={devMagic} />
     </>
   );
