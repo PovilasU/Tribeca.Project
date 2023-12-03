@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 const Clients = () => {
-  const [dataClients, setDataClients] = useState([]);
+  const [clients, setClients] = useState([]);
   const [loadingClients, setLoadingClients] = useState(true);
 
-  const [dataEmployees, setDataEmployees] = useState([]);
+  const [employees, setEmployees] = useState([]);
   const [loadingEmployees, setLoadingEmployees] = useState(true);
 
   useEffect(() => {
-    const fetchDataClients = async () => {
+    const fetchClients = async () => {
       try {
         const response = await fetch("https://localhost:7264/api/Clients");
 
@@ -16,7 +16,7 @@ const Clients = () => {
         }
 
         const result = await response.json();
-        setDataClients(result);
+        setClients(result);
         console.log(result);
         setLoadingClients(false);
       } catch (error) {
@@ -25,11 +25,11 @@ const Clients = () => {
       }
     };
 
-    fetchDataClients();
+    fetchClients();
   }, []);
 
   useEffect(() => {
-    const fetchDataEmployees = async () => {
+    const fetchEmployees = async () => {
       try {
         const response = await fetch("https://localhost:7264/api/Employees");
 
@@ -38,7 +38,7 @@ const Clients = () => {
         }
 
         const result = await response.json();
-        setDataEmployees(result);
+        setEmployees(result);
         console.log(result);
         setLoadingEmployees(false);
       } catch (error) {
@@ -47,7 +47,7 @@ const Clients = () => {
       }
     };
 
-    fetchDataEmployees();
+    fetchEmployees();
   }, []);
 
   return (
@@ -59,7 +59,7 @@ const Clients = () => {
           <p>Loading...</p>
         ) : (
           <ul>
-            {dataClients.map((client) => (
+            {clients.map((client) => (
               <li key={client.name}>{client.name}</li>
             ))}
           </ul>
