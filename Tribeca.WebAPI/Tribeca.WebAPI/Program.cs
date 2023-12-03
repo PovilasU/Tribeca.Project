@@ -15,7 +15,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddCors(options=>options.AddPolicy(name: "TribecaOrigins",
     policy => 
     {
-        policy.WithOrigins("http://localhost:4200", "http://localhost:9876").AllowAnyMethod().AllowAnyHeader();
+        policy.WithOrigins("http://localhost:4200", "http://localhost:9876", "http://localhost:5173").AllowAnyMethod().AllowAnyHeader();
     }));
 
 builder.Services.AddDbContext<TribecaDbContext>(options =>

@@ -24,7 +24,6 @@ export class ClientsService {
   }
 
   async getClienById(id: number): Promise<Client | undefined> {
-    console.log("i was fired");
     console.log(`${this.url}/${id}`);
     try {
       const data = await fetch(`${this.url}/${id}`);
