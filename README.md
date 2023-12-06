@@ -1,4 +1,6 @@
 # Tribeca.Project
+
+Task Description: https://github.com/PovilasU/Tribeca.Project/blob/main/Tribeca.task_description_and_screenshots/Dev-Senior-Tech-Test.pdf
 * C#
 * ASP. NET core
 * Microsoft SQL
