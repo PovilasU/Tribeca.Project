@@ -14,7 +14,7 @@ Explore the task details and screenshots in the [Dev-Senior-Tech-Test.pdf](https
 - **WebAPI:** Building HTTP services for a variety of clients.
 - **JSON:** A lightweight data-interchange format.
 - **GIT**
- -- **Project Demo on YouTube:**
+ -**Project Demo on YouTube:**
   - [Part 1](https://www.youtube.com/watch?v=QPZGuZEadUM)
   - [Part 2](https://www.youtube.com/watch?v=i7u4M94ub7w)
 
